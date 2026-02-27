@@ -597,7 +597,8 @@ static void on_pointer_button(void* data, struct wl_pointer* wl_pointer,
             ctx->mouse.button |= btn;
             app_on_mclick(mods, ctx->mouse.button, ctx->mouse.x, ctx->mouse.y);
 
-            if (ctx->mouse.shape == ui_cursor_drag && start_dnd(ctx, serial)) {
+            if (ctx->mouse.shape == ui_cursor_drag_and_drop &&
+                start_dnd(ctx, serial)) {
                 // The compositor handles drag cursor and motion while dragging.
                 ctx->mouse.button &= ~btn;
                 ui_set_cursor(ui_cursor_default);
@@ -981,6 +982,7 @@ static void wayland_set_cursor(void* data, enum ui_cursor shape)
             wl_pointer_set_cursor(ctx->wl.pointer, 0, NULL, 0, 0);
             return;
         case ui_cursor_drag:
+        case ui_cursor_drag_and_drop:
             wlshape = WP_CURSOR_SHAPE_DEVICE_V1_SHAPE_GRABBING;
             break;
         case ui_cursor_default:
