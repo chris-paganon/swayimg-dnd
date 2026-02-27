@@ -635,7 +635,7 @@ static bool on_mouse_click(uint8_t mods, uint32_t btn, size_t x, size_t y)
         app_switch_mode(kb->actions->params);
         return true;
     }
-    if (kb && kb->actions->type == action_drag) {
+    if (kb && kb->actions->type == action_drag_and_drop) {
         if (!layout_get_at(&ctx.layout, x, y)) {
             return true;
         }
@@ -646,7 +646,7 @@ static bool on_mouse_click(uint8_t mods, uint32_t btn, size_t x, size_t y)
                               imglist_size());
             app_redraw();
         }
-        ui_set_cursor(ui_cursor_drag);
+        ui_set_cursor(ui_cursor_drag_and_drop);
         return true;
     }
     return false;
